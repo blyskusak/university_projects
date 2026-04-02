@@ -1,13 +1,15 @@
 # Combinatorial Hypothesis Verification
 
 ## Project Description
-This project is a high-performance, multithreaded C application designed to computationally verify a combinatorial hypothesis regarding `d`-bounded multisets. The program calculates the maximum sum `α(d, A_0, B_0)` for a pair of undisputed (bezsporne), `d`-bounded multisets `A` and `B`, extending given initial multisets `A_0` and `B_0`.
+This project is a high-performance, multithreaded C application designed to computationally verify a combinatorial hypothesis regarding `d`-bounded multisets. The program calculates the maximum sum `α(d, A_0, B_0)` for a pair of undisputed, `d`-bounded multisets `A` and `B`, extending given initial multisets `A_0` and `B_0`.
 
 The core problem requires exploring a massive state space using a backtracking algorithm. To achieve optimal execution times within strict system constraints, the original recursive, single-threaded algorithm was refactored into a custom iterative approach and then highly parallelized using POSIX Threads (`pthreads`).
 
 ## Core Mechanics and Constraints
-* **Undisputed Multisets:** Two multisets `A` and `B` are considered undisputed if their total sums are equal, but the sums of any of their non-empty subsets are strictly different.
-* **`d`-Boundedness:** All elements within the multisets belong to the set `{1, ..., d}`.
+* **Undisputed Multisets:** Two multisets `A` and `B` are considered undisputed if their total sums are equal (`∑A = ∑B`), but the sums of any of their non-empty proper subsets are strictly different. Formally, for all subsets `A' ⊆ A` and `B' ⊆ B`:
+  `∑A' = ∑B' ⟺ A' = B' = ∅ ∨ (A' = A ∧ B' = B)`
+* **`d`-Boundedness:** All elements within the multisets belong to the set `{1, ..., d}` (with arbitrary repetitions).
+* **The Objective:** For a given `d ≥ 3` and initial multisets `A_0`, `B_0`, the goal is to find undisputed `d`-bounded multisets `A ⊇ A_0` and `B ⊇ B_0` that maximize the value of `∑A`. This maximum value is denoted as `α(d, A_0, B_0)`.
 * **Bitset Optimization:** To prevent costly sum recalculations, the sets of all possible subset sums (`A_Σ` and `B_Σ`) are maintained incrementally using highly optimized bitwise operations (provided via a custom `sumset.h` library).
 * **Strict Memory Limits:** The application strictly operates within a 128 MiB address space limit per thread to prevent excessive memory consumption during deep tree explorations.
 
