@@ -37,13 +37,3 @@ The application parses pharmacological, chemical, and genomic data to generate s
 * **Network & Graphing:** `networkx`, `matplotlib`
 * **Web API:** `fastapi`, `uvicorn`, `pydantic`, `requests`
 * **Testing:** `pytest`, `ipytest`
-
-## How to Run
-This project is structured as a self-contained Jupyter Notebook (`drugbank.ipynb`).
-
-1. Ensure the required XML data file (`drugbank_partial.xml`) is in the same directory as the notebook.
-2. Install the required dependencies:
-   ```bash
-   pip install pandas lxml beautifulsoup4 networkx matplotlib fastapi uvicorn requests pytest ipytest nest_asyncio
-   ```
-3. Run all cells in the Jupyter Notebook. The notebook will automatically output CSV files for each task, generate the necessary plots, execute the testing suite, and spin up a background thread hosting the FastAPI server.
